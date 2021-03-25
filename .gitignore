@@ -1,2 +1,4 @@
 /functions/serverless-graphql/node_modules
 /functions/serverless-graphql/serviceAccount.json
+
+.env
