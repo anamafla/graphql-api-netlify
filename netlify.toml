@@ -1,3 +1,2 @@
 [build]
- command = "yarn functions"
  functions = "functions"
