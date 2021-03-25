@@ -1,5 +1,13 @@
 {
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
-    "functions": "cd functions/serverless-graphql && yarn install"
+    "functions": "cd functions/serverless-graphql && npm run install"
+  },
+  "dependencies": {
+    "apollo-server-lambda": "^2.4.8",
+    "firebase-admin": "^9.5.0",
+    "graphql": "^14.1.1"
   }
 }
