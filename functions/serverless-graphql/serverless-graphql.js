@@ -50,11 +50,11 @@ const { gql } = require("apollo-server-lambda");
 
 const admin = require("firebase-admin");
 
-const credential = require("./serviceAccount.json");
+// const credential = require("./serviceAccount.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(credential)
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(credential)
+// });
 
 const typeDefs = gql`
   type Video {
