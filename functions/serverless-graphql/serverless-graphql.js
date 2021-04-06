@@ -23,22 +23,6 @@ admin.initializeApp({
   credential: admin.credential.cert(credential)
 });
 
-// admin.initializeApp({
-//   credential: admin.credential.cert({
-//     type: JSON.parse(process.env.JSON_DATA).type,
-//     project_id: JSON.parse(process.env.JSON_DATA).project_id,
-//     private_key_id: JSON.parse(process.env.JSON_DATA).private_key_id,
-//     private_key: JSON.parse(process.env.JSON_DATA).private_key,
-//     client_email: JSON.parse(process.env.JSON_DATA).client_email,
-//     client_id: JSON.parse(process.env.JSON_DATA).client_id,
-//     auth_uri: JSON.parse(process.env.JSON_DATA).auth_uri,
-//     token_uri: JSON.parse(process.env.JSON_DATA).token_uri,
-//     auth_provider_x509_cert_url: JSON.parse(process.env.JSON_DATA)
-//       .auth_provider_x509_cert_url,
-//     client_x509_cert_url: JSON.parse(process.env.JSON_DATA).client_x509_cert_url
-//   })
-// });
-
 const typeDefs = gql`
   type Video {
     id: ID
