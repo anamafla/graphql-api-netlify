@@ -51,6 +51,22 @@ const typeDefs = gql`
     videos: [Video]
     sections: [Sections]
   }
+
+  type Mutation {
+    updateVideo(
+      id: ID!
+      description: String
+      videoUrl: String
+      subtitle: String
+      thumb: String
+      name: String
+      slug: String
+      duration: Int
+      sort: Int
+      isCompleted: Boolean
+      category: String
+    ): Video!
+  }
 `;
 
 const resolvers = {
@@ -81,6 +97,52 @@ const resolvers = {
       });
 
       return videos.docs.map(video => video.data());
+    }
+  },
+
+  Mutation: {
+    updateVideo: async (_, args) => {
+      const video = await admin
+        .firestore()
+        .collection("sections")
+        .doc("1")
+        .collection("videos")
+        .doc(args.id)
+        .get();
+
+      const newVideo = {
+        ...video.data(),
+        description:
+          args.description !== undefined
+            ? args.description
+            : video.data().description,
+        videoUrl:
+          args.videoUrl !== undefined ? args.videoUrl : video.data().videoUrl,
+        subtitle:
+          args.subtitle !== undefined ? args.subtitle : video.data().subtitle,
+        thumb: args.thumb !== undefined ? args.thumb : video.data().thumb,
+        name: args.name !== undefined ? args.name : video.data().name,
+        slug: args.slug !== undefined ? args.slug : video.data().slug,
+        duration:
+          args.duration !== undefined ? args.duration : video.data().duration,
+        sort: args.sort !== undefined ? args.sort : video.data().sort,
+        isCompleted:
+          args.isCompleted !== undefined
+            ? args.isCompleted
+            : video.data().isCompleted,
+        category:
+          args.category !== undefined ? args.category : video.data().category
+      };
+
+      await admin
+        .firestore()
+        .collection("sections")
+        .doc("1")
+        .collection("videos")
+        .doc(args.id)
+        .update(newVideo);
+
+      return newVideo;
     }
   }
 };
