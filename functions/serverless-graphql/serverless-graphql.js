@@ -179,7 +179,7 @@ const resolvers = {
       await admin
         .firestore()
         .collection("sections")
-        .doc("1")
+        .doc(args.sectionId)
         .collection("videos")
         .doc(args.id)
         .update(newVideo);
