@@ -53,6 +53,21 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    createVideo(
+      id: ID!
+      description: String
+      videoUrl: String
+      subtitle: String
+      thumb: String
+      name: String
+      slug: String
+      duration: Int
+      sort: Int
+      isCompleted: Boolean
+      category: String
+      sectionId: String
+    ): Video!
+
     updateVideo(
       id: ID!
       description: String
@@ -65,6 +80,7 @@ const typeDefs = gql`
       sort: Int
       isCompleted: Boolean
       category: String
+      sectionId: String
     ): Video!
   }
 `;
@@ -101,11 +117,37 @@ const resolvers = {
   },
 
   Mutation: {
+    createVideo: async (_, args) => {
+      const newVideo = {
+        id: args.id,
+        description: args.description,
+        videoUrl: args.videoUrl,
+        subtitle: args.subtitle,
+        thumb: args.thumb,
+        name: args.name,
+        slug: args.slug,
+        duration: args.duration,
+        sort: args.sort,
+        isCompleted: args.isCompleted,
+        category: args.category
+      };
+
+      await admin
+        .firestore()
+        .collection("sections")
+        .doc(args.sectionId)
+        .collection("videos")
+        .doc(args.id)
+        .set(newVideo);
+
+      return newVideo;
+    },
+
     updateVideo: async (_, args) => {
       const video = await admin
         .firestore()
         .collection("sections")
-        .doc("1")
+        .doc(args.sectionId)
         .collection("videos")
         .doc(args.id)
         .get();
