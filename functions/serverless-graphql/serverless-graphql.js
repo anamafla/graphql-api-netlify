@@ -48,7 +48,7 @@ const typeDefs = gql`
   type Query {
     hello: String
     # video(id: ID!): Video
-    videos: [Video]
+    videos(sectionId: String): [Video]
     sections: [Sections]
   }
 
@@ -94,17 +94,17 @@ const resolvers = {
         .collection("sections")
         .get();
 
-      sections.docs.forEach(section =>
-        console.log(section.id, "=>", section.data())
-      );
+      // sections.docs.forEach(section =>
+      //   console.log(section.id, "=>", section.data())
+      // );
 
       return sections.docs.map(section => section.data());
     },
-    videos: async () => {
+    videos: async (_, args) => {
       const videos = await admin
         .firestore()
         .collection("sections")
-        .doc("1")
+        .doc(args.sectionId)
         .collection("videos")
         .get();
 
